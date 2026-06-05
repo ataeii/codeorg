@@ -61,7 +61,14 @@ async function main() {
 
   const lesson1 = await prisma.lesson.upsert({
     where: { id: "lesson-sequences-1" },
-    update: {},
+    update: {
+      mazeConfig: JSON.stringify({
+        rows: 1, cols: 5,
+        grid: [[0, 0, 0, 0, 0]],
+        startX: 0, startY: 0, startDir: "E",
+        goalX: 4, goalY: 0,
+      }),
+    },
     create: {
       id: "lesson-sequences-1",
       courseId: course.id,
@@ -71,17 +78,22 @@ async function main() {
 
 کامپیوترها دستورالعمل‌ها را یکی پس از دیگری اجرا می‌کنند.
 
-**هدف:** کاراکتر را به ستاره برسان!
+**هدف:** ربات را به ستاره برسان!
 
 1. از بلاک **"حرکت به جلو"** استفاده کن
-2. بلاک‌ها را به ترتیب مناسب بچین
-3. دکمه **"اجرای کد"** را بزن`,
+2. چند بار باید حرکت کنی تا به ستاره برسی؟
+3. بلاک‌ها را بچین و دکمه **"اجرای کد"** را بزن`,
       starterXml: `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`,
+      mazeConfig: JSON.stringify({
+        rows: 1, cols: 5,
+        grid: [[0, 0, 0, 0, 0]],
+        startX: 0, startY: 0, startDir: "E",
+        goalX: 4, goalY: 0,
+      }),
       hints: {
         create: [
-          { order: 1, text: "ابتدا یک بلاک «حرکت به جلو» اضافه کن." },
-          { order: 2, text: "بلاک‌ها را به ترتیب از بالا به پایین بچین." },
-          { order: 3, text: "برای رسیدن به ستاره به ۳ حرکت نیاز داری." },
+          { order: 1, text: "ربات باید ۴ بار حرکت کند تا به ستاره برسد." },
+          { order: 2, text: "۴ بلاک «حرکت به جلو» را روی هم بگذار." },
         ],
       },
     },
@@ -89,7 +101,18 @@ async function main() {
 
   const lesson2 = await prisma.lesson.upsert({
     where: { id: "lesson-loops-1" },
-    update: {},
+    update: {
+      mazeConfig: JSON.stringify({
+        rows: 3, cols: 5,
+        grid: [
+          [0, 1, 1, 1, 1],
+          [0, 0, 0, 0, 0],
+          [1, 1, 1, 1, 0],
+        ],
+        startX: 0, startY: 0, startDir: "S",
+        goalX: 4, goalY: 2,
+      }),
+    },
     create: {
       id: "lesson-loops-1",
       courseId: course.id,
@@ -99,14 +122,30 @@ async function main() {
 
 حلقه‌ها به ما اجازه می‌دهند یک دستور را چندین بار تکرار کنیم.
 
-**هدف:** با کمترین تعداد بلاک، ستاره را جمع‌آوری کن!
+**هدف:** ربات را از پیچ و خم عبور بده!
 
-از بلاک **"تکرار ... بار"** برای ساده‌تر کردن برنامه‌ات استفاده کن.`,
+مسیر داری پیچ می‌خوره. باید:
+1. بچرخی
+2. حرکت کنی
+3. دوباره بچرخی
+
+از بلاک **"تکرار"** برای ساده‌تر کردن استفاده کن.`,
       starterXml: `<xml xmlns="https://developers.google.com/blockly/xml"></xml>`,
+      mazeConfig: JSON.stringify({
+        rows: 3, cols: 5,
+        grid: [
+          [0, 1, 1, 1, 1],
+          [0, 0, 0, 0, 0],
+          [1, 1, 1, 1, 0],
+        ],
+        startX: 0, startY: 0, startDir: "S",
+        goalX: 4, goalY: 2,
+      }),
       hints: {
         create: [
-          { order: 1, text: "از بلاک «تکرار» در دسته‌بندی «حلقه‌ها» استفاده کن." },
-          { order: 2, text: "داخل حلقه، بلاک حرکت را قرار بده." },
+          { order: 1, text: "ابتدا به جنوب حرکت کن، سپس به راست بچرخ." },
+          { order: 2, text: "بعد از چرخش، ۴ بار به جلو برو." },
+          { order: 3, text: "در آخر به راست بچرخ و یک قدم به جلو برو." },
         ],
       },
     },

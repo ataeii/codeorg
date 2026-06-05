@@ -59,6 +59,7 @@ model Lesson {
   title        String
   instructions String
   starterXml   String?
+  mazeConfig   String?
   hints        Hint[]
   progress     Progress[]
   createdAt    DateTime   @default(now())

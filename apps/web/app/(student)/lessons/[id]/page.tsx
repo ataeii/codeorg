@@ -31,11 +31,16 @@ export default async function LessonPage({ params }: Props) {
   const processed = await remark().use(remarkHtml).process(lesson.instructions);
   const instructionsHtml = processed.toString();
 
+  const mazeConfig = lesson.mazeConfig
+    ? JSON.parse(lesson.mazeConfig)
+    : null;
+
   return (
     <LessonClient
       lesson={lesson}
       initialProgress={progress}
       instructionsHtml={instructionsHtml}
+      mazeConfig={mazeConfig}
     />
   );
 }
