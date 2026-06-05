@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
 import { SignOutButton } from "./SignOutButton";
 
 export default async function Navbar() {
-  const t = useTranslations();
+  const t = await getTranslations();
   const session = await auth();
   const role = session?.user?.role;
 

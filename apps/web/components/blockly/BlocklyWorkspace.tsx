@@ -32,12 +32,14 @@ export default function BlocklyWorkspace({
 
     async function init() {
       const Blockly = (await import("blockly")).default;
+      const { blocks } = await import("blockly/blocks");
+      Blockly.common.defineBlocks(blocks);
       const { javascriptGenerator } = await import("blockly/javascript");
       const { FARSI_TOOLBOX } = await import("@/lib/blockly/toolbox");
       const { FARSI_BLOCKLY_MESSAGES } = await import("@/lib/blockly/farsi-messages");
 
       // Apply Farsi messages
-      Blockly.setLocale(FARSI_BLOCKLY_MESSAGES);
+      Object.assign(Blockly.Msg, FARSI_BLOCKLY_MESSAGES);
 
       // Expose Blockly + generator on window for getCode helper
       (window as Window & { Blockly?: unknown }).Blockly = {

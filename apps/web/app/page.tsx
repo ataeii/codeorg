@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/curriculum/Navbar";
 
-export default function HomePage() {
-  const t = useTranslations();
+export default async function HomePage() {
+  const t = await getTranslations();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">

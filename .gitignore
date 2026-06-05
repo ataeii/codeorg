@@ -17,6 +17,8 @@ build
 
 # Prisma
 prisma/migrations/*.db
+*.db
+*.db-journal
 
 # OS
 .DS_Store

@@ -1,10 +1,10 @@
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import CourseCard from "@/components/curriculum/CourseCard";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export default async function CoursesPage() {
-  const t = useTranslations();
+  const t = await getTranslations();
   const session = await auth();
 
   const courses = await db.course.findMany({
