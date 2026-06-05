@@ -15,15 +15,15 @@ export default async function CoursesPage() {
   const progressMap: Record<string, number> = {};
 
   if (session?.user?.id) {
-    const completedCounts = await db.progress.groupBy({
-      by: ["lessonId"],
+    const completedProgress = await db.progress.findMany({
       where: { userId: session.user.id, completed: true },
+      include: { lesson: { select: { courseId: true } } },
     });
 
     for (const course of courses) {
       const total = course._count.lessons;
-      const completed = completedCounts.filter((p) =>
-        courses.find((c) => c.id === course.id)
+      const completed = completedProgress.filter(
+        (p) => p.lesson.courseId === course.id
       ).length;
       progressMap[course.id] = total > 0 ? Math.round((completed / total) * 100) : 0;
     }
