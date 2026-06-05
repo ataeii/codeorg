@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  passwordHash String
+  role         Role          @default(STUDENT)
+  grade        Int?
+  school       String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  progress     Progress[]
+  certificates Certificate[]
+  taughtClasses Class[]      @relation("TeacherClasses")
+  enrolledIn   ClassStudent[]
+}
+
+model Course {
+  id           String        @id @default(cuid())
+  slug         String        @unique
+  title        String
+  description  String
+  difficulty   Difficulty    @default(BEGINNER)
+  gradeMin     Int           @default(1)
+  gradeMax     Int           @default(12)
+  order        Int           @default(0)
+  imageUrl     String?
+  lessons      Lesson[]
+  certificates Certificate[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Lesson {
+  id           String     @id @default(cuid())
+  courseId     String
+  course       Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  order        Int
+  title        String
+  instructions String     @db.Text
+  starterXml   String?    @db.Text
+  hints        Hint[]
+  progress     Progress[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([courseId, order])
+}
+
+model Hint {
+  id       String @id @default(cuid())
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  order    Int
+  text     String @db.Text
+}
+
+model Progress {
+  userId      String
+  lessonId    String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  completed   Boolean  @default(false)
+  attempts    Int      @default(0)
+  savedXml    String?  @db.Text
+  completedAt DateTime?
+
+  @@id([userId, lessonId])
+  @@index([userId])
+}
+
+model Certificate {
+  userId   String
+  courseId String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course   Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  issuedAt DateTime @default(now())
+
+  @@id([userId, courseId])
+}
+
+model Class {
+  id        String         @id @default(cuid())
+  teacherId String
+  teacher   User           @relation("TeacherClasses", fields: [teacherId], references: [id])
+  name      String
+  joinCode  String         @unique @default(cuid())
+  createdAt DateTime       @default(now())
+  students  ClassStudent[]
+}
+
+model ClassStudent {
+  classId   String
+  studentId String
+  class     Class  @relation(fields: [classId], references: [id], onDelete: Cascade)
+  student   User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  joinedAt  DateTime @default(now())
+
+  @@id([classId, studentId])
+}

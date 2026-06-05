@@ -1,0 +1,87 @@
+{
+  "common": {
+    "appName": "کدآموز",
+    "tagline": "یادگیری کدنویسی به زبان فارسی",
+    "login": "ورود",
+    "logout": "خروج",
+    "register": "ثبت‌نام",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "name": "نام",
+    "submit": "ارسال",
+    "cancel": "لغو",
+    "save": "ذخیره",
+    "next": "بعدی",
+    "previous": "قبلی",
+    "back": "بازگشت",
+    "loading": "در حال بارگذاری...",
+    "error": "خطا",
+    "success": "موفقیت",
+    "grade": "پایه",
+    "school": "مدرسه"
+  },
+  "nav": {
+    "courses": "دوره‌ها",
+    "progress": "پیشرفت من",
+    "classroom": "کلاس درس",
+    "admin": "مدیریت",
+    "dashboard": "داشبورد"
+  },
+  "home": {
+    "hero": "کدنویسی را امروز شروع کن!",
+    "heroSub": "دوره‌های رایگان برنامه‌نویسی برای دانش‌آموزان ایرانی",
+    "startLearning": "شروع یادگیری",
+    "featuredCourses": "دوره‌های ویژه"
+  },
+  "courses": {
+    "title": "دوره‌های آموزشی",
+    "lessons": "درس",
+    "difficulty": {
+      "beginner": "مبتدی",
+      "intermediate": "متوسط",
+      "advanced": "پیشرفته"
+    },
+    "startCourse": "شروع دوره",
+    "continueCourse": "ادامه دوره",
+    "completed": "تکمیل شده",
+    "gradeRange": "پایه {min} تا {max}"
+  },
+  "lesson": {
+    "instructions": "راهنمایی",
+    "workspace": "فضای کار",
+    "runCode": "اجرای کد",
+    "resetCode": "بازنشانی",
+    "showHint": "نمایش راهنما",
+    "nextLesson": "درس بعدی",
+    "completedMessage": "آفرین! این درس را کامل کردی!",
+    "tryAgain": "دوباره امتحان کن"
+  },
+  "auth": {
+    "loginTitle": "ورود به حساب کاربری",
+    "registerTitle": "ایجاد حساب کاربری",
+    "noAccount": "حساب کاربری ندارید؟",
+    "haveAccount": "حساب کاربری دارید؟",
+    "role": {
+      "student": "دانش‌آموز",
+      "teacher": "معلم",
+      "admin": "مدیر"
+    }
+  },
+  "progress": {
+    "title": "پیشرفت من",
+    "completedLessons": "درس‌های تکمیل شده",
+    "totalLessons": "کل درس‌ها",
+    "certificates": "گواهینامه‌ها"
+  },
+  "blockly": {
+    "categories": {
+      "logic": "منطق",
+      "loops": "حلقه‌ها",
+      "math": "ریاضی",
+      "text": "متن",
+      "lists": "لیست‌ها",
+      "variables": "متغیرها",
+      "functions": "توابع"
+    }
+  }
+}
